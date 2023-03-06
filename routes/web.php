@@ -23,5 +23,16 @@ Route::get('/dashboard', function () {
 
 require __DIR__.'/auth.php';
 
-//Admin dashboard route
-Route::get('admin/dashboard','App\Http\Controllers\Admin\AdminController@dashboard');
+// Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')-group(function(){
+//     Route::match(['get','post'],'login','AdminController@login');
+//     //Admin dashboard route
+//     Route::get('dashboard','AdminController@dashboard');
+// });
+
+Route::group(['prefix'=>'admin'],function(){
+
+    Route::match(['get','post'],'/login',[App\Http\Controllers\Admin\AdminController::class,'login']);
+    Route::group(['middleware'=>['admin']],function(){
+        Route::get('/dashboard',[App\Http\Controllers\Admin\AdminController::class,'dashboard']);
+    });
+});
