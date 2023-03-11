@@ -41,6 +41,9 @@ Route::group(['prefix'=>'admin'],function(){
         Route::post('/check-admin-password',[App\Http\Controllers\Admin\AdminController::class,'checkAdminPassword']);
         //update details
         Route::match(['get','post'],'/update-admin-details',[App\Http\Controllers\Admin\AdminController::class,'updateAdminDetails']);
+        //update vendor Details
+        Route::match(['get','post'],'/update-vendor-details/{slug}',[App\Http\Controllers\Admin\AdminController::class,'updateVendorDetails']);
+        
         //logout
         Route::get('/logout',[App\Http\Controllers\Admin\AdminController::class,'logout']);
     });
