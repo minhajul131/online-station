@@ -43,6 +43,11 @@ Route::group(['prefix'=>'admin'],function(){
         Route::match(['get','post'],'/update-admin-details',[App\Http\Controllers\Admin\AdminController::class,'updateAdminDetails']);
         //update vendor Details
         Route::match(['get','post'],'/update-vendor-details/{slug}',[App\Http\Controllers\Admin\AdminController::class,'updateVendorDetails']);
+
+        //view admin vendor subAdmins
+        Route::get('/admins/{trpe?}',[App\Http\Controllers\Admin\AdminController::class,'admins']);
+
+        Route::get('/view-vendor-details/{id}',[App\Http\Controllers\Admin\AdminController::class,'viewVendorDetails']);
         
         //logout
         Route::get('/logout',[App\Http\Controllers\Admin\AdminController::class,'logout']);

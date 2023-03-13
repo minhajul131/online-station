@@ -9,6 +9,7 @@ use Auth;
 use App\Models\Admin;
 use App\Models\Vendor;
 use App\Models\VendorsBusinessDetail;
+use App\Models\VendorsBankDetail;
 use Image;
 
 class AdminController extends Controller
@@ -144,7 +145,6 @@ class AdminController extends Controller
     
                 $customMessages = [
                     'shop_name.required' =>'Name is required',
-                    'shop_name.regex' =>'Valid name is required',
                     'shop_mobile.required' =>'Mobile number is required',
                     'shop_mobile.numeric' =>'Valid mobile number is required',
                     'address_proof.required' => 'Address Proof is reqired',
@@ -173,7 +173,29 @@ class AdminController extends Controller
             }
             $vendorDetails = VendorsBusinessDetail::where('vendor_id',Auth::guard('admin')->user()->vendor_id)->first()->toArray();
         }else if($slug=="bank"){
-            
+            if($request->isMethod('post')){
+                $data = $request->all();
+
+                $rules = [
+                    'account_holder_name' => 'required|regex:/^[\pL\s\-]+$/u',
+                    'bank_name' => 'required',
+                    'account_number' => 'required',
+                ];
+    
+                $customMessages = [
+                    'account_holder_name.required' =>'Name is required',
+                    'account_holder_name.regex' =>'Valid name is required',
+                    'bank_name.required' =>'Mobile number is required',
+                    'account_number.required' => 'Address Proof is reqired',
+                ];
+    
+                $this->validate($request,$rules,$customMessages);
+    
+                //update info in vendor table
+                VendorsBankDetail::where('vendor_id',Auth::guard('admin')->user()->vendor_id)->update(['account_holder_name'=>$data['account_holder_name'],'bank_name'=>$data['bank_name'],'account_number'=>$data['account_number'],'bank_code'=>$data['bank_code']]);
+                return redirect()->back()->with('success_message','Bank information Updated');
+            }
+            $vendorDetails = VendorsBankDetail::where('vendor_id',Auth::guard('admin')->user()->vendor_id)->first()->toArray();
         }
         return view('admin.settings.update-vendor-details')->with(compact('slug','vendorDetails'));
     }
@@ -191,6 +213,25 @@ class AdminController extends Controller
             }
         }
         return view('admin.login');
+    }
+
+    public function admins($trpe = null){
+        $admins = Admin::query();
+        if(!empty($trpe)){
+            $admins = $admins->where('trpe', $trpe);
+            $title = ucfirst($trpe)."s";
+        }else{
+            $title = "All Admins/Subadmins/Vendors";
+        }
+        $admins = $admins->get()->toArray();
+        // dd($admins);
+        return view('admin.admins.admins')->with(compact('admins','title'));
+    }
+
+    public function viewVendorDetails($id){
+        $vendorDetails = Admin::with('verdorPersonal','verdorBusiness','verdorBank')->where('id',$id)->first();        
+        $vendorDetails = json_decode(json_encode($vendorDetails),true);   
+        // dd($vendorDetails);
     }
 
     public function logout(){
