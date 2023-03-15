@@ -11,13 +11,13 @@ class Admin extends Authenticatable
     use HasFactory;
     protected $guard = 'admin';
 
-    public function verdorPersonal(){
-        return $this->belongsTo('App\Models\Vendor'.'vendor_id');
+    public function vendorPersonal(){
+        return $this->belongsTo('App\Models\Vendor','vendor_id');
     }
-    public function verdorBusiness(){
-        return $this->belongsTo('App\Models\VendorsBusinessDetail'.'vendor_id');
+    public function vendorBusiness(){
+        return $this->belongsTo('App\Models\VendorsBusinessDetail','vendor_id');
     }
-    public function verdorBank(){
-        return $this->belongsTo('App\Models\VendorsBankDetail'.'vendor_id');
+    public function vendorBank(){
+        return $this->belongsTo('App\Models\VendorsBankDetail','vendor_id');
     }
 }

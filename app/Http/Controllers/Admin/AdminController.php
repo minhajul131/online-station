@@ -229,9 +229,10 @@ class AdminController extends Controller
     }
 
     public function viewVendorDetails($id){
-        $vendorDetails = Admin::with('verdorPersonal','verdorBusiness','verdorBank')->where('id',$id)->first();        
+        $vendorDetails = Admin::with('vendorPersonal','vendorBusiness','vendorBank')->where('id',$id)->first();        
         $vendorDetails = json_decode(json_encode($vendorDetails),true);   
         // dd($vendorDetails);
+        return view('admin.admins.view-vendor-details')->with(compact('vendorDetails'));
     }
 
     public function logout(){
