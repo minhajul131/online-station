@@ -48,6 +48,8 @@ Route::group(['prefix'=>'admin'],function(){
         Route::get('/admins/{trpe?}',[App\Http\Controllers\Admin\AdminController::class,'admins']);
 
         Route::get('/view-vendor-details/{id}',[App\Http\Controllers\Admin\AdminController::class,'viewVendorDetails']);
+
+        Route::post('/update-admin-status',[App\Http\Controllers\Admin\AdminController::class,'updateAdminStatus']);
         
         //logout
         Route::get('/logout',[App\Http\Controllers\Admin\AdminController::class,'logout']);
