@@ -81,7 +81,13 @@
                 </div>
                 <div class="form-group">
                     <label for="vendor_country">Country</label>
-                    <input type="text" class="form-control" id="vendor_country" placeholder="Enter your country" name="vendor_country" value="{{ $vendorDetails['country'] }}">
+                    <!-- <input type="text" class="form-control" id="vendor_country" placeholder="Enter your country" name="vendor_country" value="{{ $vendorDetails['country'] }}"> -->
+                    <select class="form-control" name="vendor_country" id="vendor_country" style="color : #000000;">
+                        <option value="">Select Country</option>
+                        @foreach($countries as $country)
+                        <option value="{{ $country['country_name'] }}" @if($country['country_name']==$vendorDetails['country']) selected @endif>{{ $country['country_name'] }}</option>
+                        @endforeach
+                    </select>
                 </div>
                 <div class="form-group">
                     <label for="vendor_postcode">Post Code</label>
@@ -159,7 +165,13 @@
                 </div>
                 <div class="form-group">
                     <label for="shop_country">Shop Country</label>
-                    <input type="text" class="form-control" id="shop_country" placeholder="Enter your shop country" name="shop_country" value="{{ $vendorDetails['shop_country'] }}">
+                    <!-- <input type="text" class="form-control" id="shop_country" placeholder="Enter your shop country" name="shop_country" value="{{ $vendorDetails['shop_country'] }}"> -->
+                    <select class="form-control" name="shop_country" id="shop_country" style="color : #000000;">
+                        <option value="">Select Country</option>
+                        @foreach($countries as $country)
+                        <option value="{{ $country['country_name'] }}" @if($country['country_name']==$vendorDetails['shop_country']) selected @endif>{{ $country['country_name'] }}</option>
+                        @endforeach
+                    </select>
                 </div>
                 <div class="form-group">
                     <label for="shop_pincode">Post Code</label>

@@ -1,4 +1,6 @@
 $(document).ready(function(){
+    $(".nav-item").removeClass("active");
+    $(".nav-link").removeClass("active");
     //current password is correct or not 
     $("#current_password").keyup(function(){
         var current_password = $("#current_password").val();

@@ -10,15 +10,19 @@ use App\Models\Admin;
 use App\Models\Vendor;
 use App\Models\VendorsBusinessDetail;
 use App\Models\VendorsBankDetail;
+use App\Models\Country;
 use Image;
+use Session;
 
 class AdminController extends Controller
 {
     public function dashboard(){
+        Session::put('page','dashboard');
         return view('admin.dashboard');
     }
 
     public function updateAdminPassword(Request $request){
+        Session::put('page','update-admin-password');
         if($request->isMethod('post')){
             $data = $request->all();
             // echo "<pre>"; print_r($data); die;
@@ -51,6 +55,7 @@ class AdminController extends Controller
     }
 
     public function updateAdminDetails(Request $request){
+        Session::put('page','update-admin-details');
         if($request->isMethod('post')){
             $data = $request->all();
             // echo "<pre>"; print_r($data); die;
@@ -197,7 +202,8 @@ class AdminController extends Controller
             }
             $vendorDetails = VendorsBankDetail::where('vendor_id',Auth::guard('admin')->user()->vendor_id)->first()->toArray();
         }
-        return view('admin.settings.update-vendor-details')->with(compact('slug','vendorDetails'));
+        $countries = Country::where('status',1)->get()->toArray();
+        return view('admin.settings.update-vendor-details')->with(compact('slug','vendorDetails','countries'));
     }
 
     public function login(Request $request){
@@ -220,8 +226,10 @@ class AdminController extends Controller
         if(!empty($trpe)){
             $admins = $admins->where('trpe', $trpe);
             $title = ucfirst($trpe)."s";
+            Session::put('page','view_'.strtolower($title));
         }else{
             $title = "All Admins/Subadmins/Vendors";
+            Session::put('page','view_all');
         }
         $admins = $admins->get()->toArray();
         // dd($admins);
