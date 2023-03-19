@@ -11,6 +11,7 @@
                   <!-- <p class="card-description">
                      Add class <code>.table-bordered</code>
                   </p> -->
+                  <a style="max-width: 130px; float: right; display: inline-block;" href="{{ url('admin/add-edit-section') }}" class="btn btn-block btn-primary">Add Section</a>
                   @if(Session::has('success_message'))
                   <div class="alert alert-success alert-dismissible fade show" role="alert">
                      <strong>Success: </strong> {{ Session::get('success_message')}}
