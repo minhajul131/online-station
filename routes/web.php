@@ -53,5 +53,10 @@ Route::group(['prefix'=>'admin'],function(){
         
         //logout
         Route::get('/logout',[App\Http\Controllers\Admin\AdminController::class,'logout']);
+
+        //sections
+        Route::get('/sections',[App\Http\Controllers\Admin\SectionController::class,'sections']);
+        Route::post('/update-section-status',[App\Http\Controllers\Admin\SectionController::class,'updateSectionStatus']);        
+        Route::get('/delete-section/{id}',[App\Http\Controllers\Admin\SectionController::class,'deleteSection']);        
     });
 });

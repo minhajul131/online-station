@@ -65,3 +65,4 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 # online-station
 /---------------------------\
 composer require intervention/image
+npm install sweetalert2
