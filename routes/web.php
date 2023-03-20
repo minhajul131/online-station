@@ -59,5 +59,12 @@ Route::group(['prefix'=>'admin'],function(){
         Route::post('/update-section-status',[App\Http\Controllers\Admin\SectionController::class,'updateSectionStatus']);        
         Route::get('/delete-section/{id}',[App\Http\Controllers\Admin\SectionController::class,'deleteSection']);       
         Route::match(['get','post'],'/add-edit-section/{id?}',[App\Http\Controllers\Admin\SectionController::class,'addEditSection']);       
+        
+        // categories
+        Route::get('/categories',[App\Http\Controllers\Admin\CategoryController::class,'categories']);
+        Route::post('/update-category-status',[App\Http\Controllers\Admin\CategoryController::class,'updateCategoryStatus']);
+
+        Route::match(['get','post'],'/add-edit-category/{id?}',[App\Http\Controllers\Admin\CategoryController::class,'addEditCategory']);
+        Route::get('/append-categories-level',[App\Http\Controllers\Admin\CategoryController::class,'appendCategoryLevel']);
     });
 });
