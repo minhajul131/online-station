@@ -63,6 +63,7 @@
                     <ul class="nav flex-column sub-menu" style="color: #ffffff !important; background:#4B49AC !important;">
                         <li class="nav-item"> <a @if(Session::get('page')=="sections") style="background:#FFFFFF !important; color: #4B49AC !important;" else style="background:#7CFC00 !important; color: #4B49AC !important;" @endif class="nav-link" href="{{ url('admin/sections') }}">Sections</a></li>
                         <li class="nav-item"> <a @if(Session::get('page')=="categories") style="background:#FFFFFF !important; color: #4B49AC !important;" else style="background:#7CFC00 !important; color: #4B49AC !important;" @endif class="nav-link" href="{{ url('admin/categories') }}">Categories</a></li>
+                        <li class="nav-item"> <a @if(Session::get('page')=="brands") style="background:#FFFFFF !important; color: #4B49AC !important;" else style="background:#7CFC00 !important; color: #4B49AC !important;" @endif class="nav-link" href="{{ url('admin/brands') }}">Brands</a></li>
                         <li class="nav-item"> <a @if(Session::get('page')=="products") style="background:#FFFFFF !important; color: #4B49AC !important;" else style="background:#7CFC00 !important; color: #4B49AC !important;" @endif class="nav-link" href="{{ url('admin/products') }}">Products</a></li>
                     </ul>
                 </div>

@@ -66,5 +66,13 @@ Route::group(['prefix'=>'admin'],function(){
 
         Route::match(['get','post'],'/add-edit-category/{id?}',[App\Http\Controllers\Admin\CategoryController::class,'addEditCategory']);
         Route::get('/append-categories-level',[App\Http\Controllers\Admin\CategoryController::class,'appendCategoryLevel']);
+        Route::get('/delete-category/{id}',[App\Http\Controllers\Admin\CategoryController::class,'deleteCategory']);
+        Route::get('/delete-category-image/{id}',[App\Http\Controllers\Admin\CategoryController::class,'deleteCategoryImage']);
+
+        //brands
+        Route::get('/brands',[App\Http\Controllers\Admin\BrandController::class,'brands']);
+        Route::post('/update-brand-status',[App\Http\Controllers\Admin\BrandController::class,'updateBrandStatus']);
+        Route::get('/delete-brand/{id}',[App\Http\Controllers\Admin\BrandController::class,'deleteBrand']);
+        Route::match(['get','post'],'/add-edit-brand/{id?}',[App\Http\Controllers\Admin\BrandController::class,'addEditBrand']);
     });
 });

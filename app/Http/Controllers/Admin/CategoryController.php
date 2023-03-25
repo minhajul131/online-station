@@ -74,7 +74,7 @@ class CategoryController extends Controller
                 if($image_tmp->isValid()){
                     $extension = $image_tmp->getClientOriginalExtension();
                     $imageName = rand(111,99999).'.'.$extension;
-                    $imagePath = 'front/category_images/'.$imageName;
+                    $imagePath = 'front/images/category_images/'.$imageName;
                     Image::make($image_tmp)->save($imagePath);
                     $category->category_image = $imageName;
                 }
@@ -109,5 +109,26 @@ class CategoryController extends Controller
 
             return view('admin.categories.append_categories_level')->with(compact('getCategories'));
         }
+    }
+
+    public function deleteCategory($id){
+        Category::where('id',$id)->delete();
+        $message = "Category has been deleted";
+        return redirect()->back()->with('success_message',$message);
+    }
+
+    public function deleteCategoryImage($id){
+        $categoryImage = Category::select('category_image')->where('id',$id)->first();
+
+        $category_image_path = 'front/images/category_images/';
+
+        if(file_exists($category_image_path.$categoryImage->category_image)){
+            unlink($category_image_path.$categoryImage->category_image);
+        }
+
+        Category::where('id',$id)->update(['category_image'=>'']);
+
+        $message = "Category Image Deleted";
+        return redirect()->back()->with('success_message',$message);
     }
 }
