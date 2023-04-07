@@ -74,5 +74,11 @@ Route::group(['prefix'=>'admin'],function(){
         Route::post('/update-brand-status',[App\Http\Controllers\Admin\BrandController::class,'updateBrandStatus']);
         Route::get('/delete-brand/{id}',[App\Http\Controllers\Admin\BrandController::class,'deleteBrand']);
         Route::match(['get','post'],'/add-edit-brand/{id?}',[App\Http\Controllers\Admin\BrandController::class,'addEditBrand']);
+
+        // products
+        Route::get('/products',[App\Http\Controllers\Admin\ProductsController::class,'products']);
+        Route::post('/update-product-status',[App\Http\Controllers\Admin\ProductsController::class,'updateProductStatus']);
+        Route::get('/delete-product/{id}',[App\Http\Controllers\Admin\ProductsController::class,'deleteProduct']);
+        Route::match(['get','post'],'/add-edit-product/{id?}',[App\Http\Controllers\Admin\ProductsController::class,'addEditProduct']);
     });
 });
