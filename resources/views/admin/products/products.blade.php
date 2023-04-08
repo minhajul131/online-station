@@ -35,6 +35,9 @@
                                 Product Color
                               </th>
                               <th>
+                                Product Image
+                              </th>
+                              <th>
                                 Section
                               </th>
                               <th>
@@ -67,6 +70,13 @@
                                 {{ $product['product_color'] }}
                               </td>
                               <td>
+                                @if(!empty($product['product_image']))
+                                  <img src="{{ asset('front/images/product_images/small/'.$product['product_image']) }}">
+                                @else
+                                  <img src="{{ asset('front/images/product_images/small/no image.png') }}">
+                                @endif
+                              </td>
+                              <td>
                                 {{ $product['category']['category_name'] }}
                               </td>
                               <td>
@@ -87,9 +97,13 @@
                                 @endif
                               </td>
                               <td>
-                                <a href="{{ url('admin/add-edit-product/'.$product['id']) }}"><i style="font-size:25px;" class="mdi mdi-lead-pencil"></i></a>
+                                <a title="Edit Products" href="{{ url('admin/add-edit-product/'.$product['id']) }}"><i style="font-size:25px;" class="mdi mdi-lead-pencil"></i></a>
                                 
-                                <a href="javascript:void(0)" module="product" moduleId={{ $product['id'] }} class="confirmDelete"><i style="font-size:25px;" class="mdi mdi-delete-forever"></i></a>
+                                <a title="Add Attributes" href="{{ url('admin/add-edit-attributes/'.$product['id']) }}"><i style="font-size:25px;" class="mdi mdi-plus-box"></i></a>
+                                
+                                <a title="Add Images" href="{{ url('admin/add-images/'.$product['id']) }}"><i style="font-size:25px;" class="mdi mdi-library-plus"></i></a>
+                                
+                                <a title="Delete" href="javascript:void(0)" module="product" moduleId={{ $product['id'] }} class="confirmDelete"><i style="font-size:25px;" class="mdi mdi-delete-forever"></i></a>
                               </td>
                            </tr>
                            @endforeach

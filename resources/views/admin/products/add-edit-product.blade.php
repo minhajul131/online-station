@@ -65,9 +65,9 @@
                             @foreach($categories as $section)
                                 <optgroup label={{ $section['name'] }}></optgroup> 
                                 @foreach($section['categories'] as $category)
-                                    <option value="{{ $category['category_name'] }}">&nbsp;&nbsp;&nbsp;--&nbsp;{{ $category['category_name'] }}</option>
+                                    <option @if(!empty($product['category_id']==$category['id'])) selected="" @endif value="{{ $category['id'] }}">&nbsp;&nbsp;&nbsp;--&nbsp;{{ $category['category_name'] }}</option>
                                     @foreach($category['subcategories'] as $subcategory)
-                                        <option value="{{ $subcategory['category_name'] }}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;---&nbsp;{{ $subcategory['category_name'] }}</option>
+                                        <option @if(!empty($product['category_id']==$subcategory['id'])) selected="" @endif value="{{ $subcategory['id'] }}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;---&nbsp;{{ $subcategory['category_name'] }}</option>
                                     @endforeach
                                 @endforeach
                             @endforeach
@@ -78,7 +78,7 @@
                         <select name="brand_id" id="brand_id" class="form-control" style="color: #000000">
                             <option value="">Select</option>
                             @foreach($brands as $brand)
-                                <option value="{{ $brand['id'] }}">{{ $brand['name'] }}</option>
+                                <option @if(!empty($product['brand_id']==$brand['id'])) selected="" @endif value="{{ $brand['id'] }}">{{ $brand['name'] }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -110,7 +110,7 @@
                         <label for="product_image">product Image</label>
                         <input type="file" class="form-control" id="product_image" name="product_image">
                         @if(!empty($product['product_image']))
-                            <a target="_blank" href="{{ url('front/images/product_images/'.$product['product_image']) }}">View Image</a>&nbsp;|&nbsp;
+                            <a target="_blank" href="{{ url('front/images/product_images/large/'.$product['product_image']) }}">View Image</a>&nbsp;|&nbsp;
                             <a href="javascript:void(0)" module="product-image" moduleId={{ $product['id'] }} class="confirmDelete">Delete Image</a>
                         @endif
                     </div>
@@ -118,13 +118,13 @@
                         <label for="product_video">product Video</label>
                         <input type="file" class="form-control" id="product_video" name="product_video">
                         @if(!empty($product['product_video']))
-                            <a target="_blank" href="{{ url('front/images/product_videos/'.$product['product_video']) }}">View Video</a>&nbsp;|&nbsp;
+                            <a target="_blank" href="{{ url('front/videos/product_videos/'.$product['product_video']) }}">View Video</a>&nbsp;|&nbsp;
                             <a href="javascript:void(0)" module="product-video" moduleId={{ $product['id'] }} class="confirmDelete">Delete Video</a>
                         @endif
                     </div>
                     <div class="form-group">
                         <label for="description">product Description</label>
-                        <textarea name="description" id="description" class="form-control" rows="3"></textarea>
+                        <textarea name="description" id="description" class="form-control" rows="3" @if(!empty($product['description'])) value="{{ $product['description'] }}" @else value="{{ old('description') }}" @endif>{{ $product['description'] }}</textarea>
                     </div>
                     <div class="form-group">
                         <label for="meta_title">product Meta Title</label>
@@ -135,8 +135,8 @@
                         <input type="text" class="form-control" id="meta_description" placeholder="Enter product meta description" name="meta_description" @if(!empty($product['meta_description'])) value="{{ $product['meta_description'] }}" @else value="{{ old('meta_description') }}" @endif>
                     </div>
                     <div class="form-group">
-                        <label for="meta_keywords">product Meta Keywords</label>
-                        <input type="text" class="form-control" id="meta_keywords" placeholder="Enter product meta keywords" name="meta_keywords" @if(!empty($product['meta_keywords'])) value="{{ $product['meta_keywords'] }}" @else value="{{ old('meta_keywords') }}" @endif>
+                        <label for="meta_keyword">product Meta Keywords</label>
+                        <input type="text" class="form-control" id="meta_keyword" placeholder="Enter product meta keywords" name="meta_keyword" @if(!empty($product['meta_keyword'])) value="{{ $product['meta_keyword'] }}" @else value="{{ old('meta_keyword') }}" @endif>
                     </div>
                     <div class="form-group">
                         <label for="is_featured">Featured Items</label>
