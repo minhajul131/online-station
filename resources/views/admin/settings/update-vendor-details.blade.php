@@ -106,7 +106,7 @@
                     @endif
                 </div>
                 <button type="submit" class="btn btn-primary mr-2">Submit</button>
-                <button class="btn btn-light">Cancel</button>
+                <button type="reset" class="btn btn-light">Cancel</button>
                 </form>
             </div>
             </div>
@@ -219,7 +219,7 @@
                     <input type="text" class="form-control" id="pan_number" placeholder="Enter your PAN number" name="pan_number" value="{{ $vendorDetails['pan_number'] }}">
                 </div>
                 <button type="submit" class="btn btn-primary mr-2">Submit</button>
-                <button class="btn btn-light">Cancel</button>
+                <button type="reset" class="btn btn-light">Cancel</button>
                 </form>
             </div>
             </div>
@@ -277,7 +277,7 @@
                     <input type="text" class="form-control" id="bank_code" placeholder="Enter Bank Code" name="bank_code" value="{{ $vendorDetails['bank_code'] }}">
                 </div>
                 <button type="submit" class="btn btn-primary mr-2">Submit</button>
-                <button class="btn btn-light">Cancel</button>
+                <button type="reset" class="btn btn-light">Cancel</button>
                 </form>
             </div>
             </div>
