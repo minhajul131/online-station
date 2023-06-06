@@ -95,3 +95,7 @@ Route::group(['prefix'=>'admin'],function(){
         Route::get('/delete-image/{id}',[App\Http\Controllers\Admin\ProductsController::class,'deleteImage']);
     });
 });
+
+Route::namespace('App\Http\Controllers\Front')->group(function(){
+    Route::get('/','IndexController@index');
+});
