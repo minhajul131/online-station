@@ -5,6 +5,7 @@ $(document).ready(function(){
     $('#categories').DataTable();
     $('#brands').DataTable();
     $('#products').DataTable();
+    $('#banners').DataTable();
 
     $(".nav-item").removeClass("active");
     $(".nav-link").removeClass("active");
@@ -192,6 +193,30 @@ $(document).ready(function(){
                     $('#image-'+image_id).html("<i style='font-size:25px;' class='mdi mdi-bookmark-outline' status='Inactive'></i>")
                 }else if(resp['status']==1){
                     $('#image-'+image_id).html("<i style='font-size:25px;' class='mdi mdi-bookmark-check' status='Active'></i>")
+                }
+            },error:function(){
+                alert("Error");
+            }
+        })
+    });
+
+    $(document).on("click",".updateBannerStatus",function(){
+        var status = $(this).children("i").attr("status");
+        var banner_id = $(this).attr("banner_id");
+
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN' : $('meta[name="csrf-token"]').attr('content')
+            },
+            type: 'post',
+            url:'/admin/update-banner-status',
+            data:{status:status,banner_id:banner_id},
+            success:function(resp){
+                // alert(resp);
+                if(resp['status']==0){
+                    $('#banner-'+banner_id).html("<i style='font-size:25px;' class='mdi mdi-bookmark-outline' status='Inactive'></i>")
+                }else if(resp['status']==1){
+                    $('#banner-'+banner_id).html("<i style='font-size:25px;' class='mdi mdi-bookmark-check' status='Active'></i>")
                 }
             },error:function(){
                 alert("Error");

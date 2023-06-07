@@ -82,6 +82,19 @@
                     </ul>
                 </div>
             </li>
+
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#banner-manage" aria-expanded="false" aria-controls="banner-manage">
+                    <i class="icon-layout menu-icon"></i>
+                    <span class="menu-title">Banner Management</span>
+                    <i class="menu-arrow"></i>
+                </a>    
+                <div class="collapse" id="banner-manage">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"> <a class="nav-link" href="{{ url('admin/banners') }}">Home Page Banner</a></li>
+                    </ul>
+                </div>
+            </li>
         @endif
 
         <li class="nav-item">

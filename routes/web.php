@@ -93,6 +93,12 @@ Route::group(['prefix'=>'admin'],function(){
         Route::match(['get','post'],'/add-images/{id}',[App\Http\Controllers\Admin\ProductsController::class,'addImages']);
         Route::post('/update-image-status',[App\Http\Controllers\Admin\ProductsController::class,'updateImageStatus']);
         Route::get('/delete-image/{id}',[App\Http\Controllers\Admin\ProductsController::class,'deleteImage']);
+
+        //banner
+        Route::get('/banners',[App\Http\Controllers\Admin\BannersController::class,'banners']);
+        Route::post('/update-banner-status',[App\Http\Controllers\Admin\BannersController::class,'updateBannerStatus']);
+        Route::get('/delete-banner/{id}',[App\Http\Controllers\Admin\BannersController::class,'deleteBanner']);
+        Route::match(['get','post'],'/add-edit-banner/{id?}',[App\Http\Controllers\Admin\BannersController::class,'addEditBanner']);
     });
 });
 
