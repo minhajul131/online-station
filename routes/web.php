@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Models\Category;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -104,4 +104,10 @@ Route::group(['prefix'=>'admin'],function(){
 
 Route::namespace('App\Http\Controllers\Front')->group(function(){
     Route::get('/','IndexController@index');
+
+    //listing categories route
+    $catUrls = Category::select('url')->where('status',1)->get()->pluck('url')->toArray();
+    foreach ($catUrls as $key => $url) {
+        Route::get('/'.$url,'ProductsController@listing');
+    }
 });
