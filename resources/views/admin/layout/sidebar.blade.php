@@ -22,6 +22,18 @@
                     </ul>
                 </div>
             </li>
+            <li class="nav-item">
+                <a @if(Session::get('page')=="sections" || Session::get('page')=="categories" || Session::get('page')=="products") style="background:#4B49AC !important; color: #ffffff !important;" @endif class="nav-link" data-toggle="collapse" href="#catalogue-manage" aria-expanded="false" aria-controls="catalogue-manage">
+                    <i class="icon-layout menu-icon"></i>
+                    <span class="menu-title">Catalogue Management</span>
+                    <i class="menu-arrow"></i>
+                </a>    
+                <div class="collapse" id="catalogue-manage">
+                    <ul class="nav flex-column sub-menu" style="color: #ffffff !important; background:#4B49AC !important;">
+                        <li class="nav-item"> <a @if(Session::get('page')=="products") style="background:#FFFFFF !important; color: #4B49AC !important;" else style="background:#7CFC00 !important; color: #4B49AC !important;" @endif class="nav-link" href="{{ url('admin/products') }}">Products</a></li>
+                    </ul>
+                </div>
+            </li>
         @else
             <li class="nav-item">
                 <a @if(Session::get('page')=="update-admin-password" || Session::get('page')=="update-admin-details") style="background:#4B49AC !important; color: #ffffff !important;" @endif class="nav-link" data-toggle="collapse" href="#ui-settings" aria-expanded="false" aria-controls="ui-settings">

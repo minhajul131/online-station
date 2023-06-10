@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('postcode');
             $table->string('mobile');
             $table->string('email')->unique();
+            $table->enum('confirm', ['No','Yes']);
             $table->tinyInteger('status');
             $table->timestamps();
         });

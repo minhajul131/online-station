@@ -110,4 +110,12 @@ Route::namespace('App\Http\Controllers\Front')->group(function(){
     foreach ($catUrls as $key => $url) {
         Route::get('/'.$url,'ProductsController@listing');
     }
+
+    //vendor login-register
+    Route::get('vendor/login-register','VendorController@loginRegister');
+    Route::post('vendor/register','VendorController@vendorRegister');
+
+    //confirm vendor account
+    Route::get('vendor/confirm/{code}','VendorController@confirmVendor');
+
 });
