@@ -50,7 +50,7 @@ $sections = Section::sections();
                                     Customer Login</a>
                             </li>
                             <li>
-                                <a href="account.html">
+                                <a href="{{ url('/vendor/login-register') }}">
                                     <i class="fas fa-sign-in-alt u-s-m-r-9"></i>
                                     Vendor Login</a>
                             </li>
