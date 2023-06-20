@@ -76,7 +76,7 @@
                         <ul>
                             <li>
                                 <i class="fas fa-location-arrow u-s-m-r-9"></i>
-                                <span>Stack Developers Youtube Channel</span>
+                                <span>Welcome</span>
                             </li>
                             <li>
                                 <a href="tel:+111-222-333">
@@ -88,7 +88,7 @@
                                 <a href="mailto:info@sitemakers.in">
                                     <i class="fas fa-envelope u-s-m-r-9"></i>
                                     <span>
-                                        info@sitemakers.in</span>
+                                        minhajul</span>
                                 </a>
                             </li>
                         </ul>
@@ -138,8 +138,8 @@
                     </li>
                 </ul>
             </div>
-            <p class="copyright-text">Copyright &copy; 2022
-                <a target="_blank" rel="nofollow" href="https://youtube.com/stackdevelopers">Stack Developers</a> | All Right Reserved</p>
+            <p class="copyright-text">Copyright &copy; 2023
+                <a target="_blank" rel="nofollow" href="https://youtube.com/stackdevelopers"></a> | All Right Reserved</p>
         </div>
     </div>
     <!-- Bottom-Footer /- -->

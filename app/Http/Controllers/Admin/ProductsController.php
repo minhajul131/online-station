@@ -373,4 +373,10 @@ class ProductsController extends Controller
         $message = "Product Image has been deleted";
         return redirect()->back()->with('success_message',$message);
     }
+
+    public function detail($id){
+        $productDetails = Product::find($id)->toArray();
+        dd($productDetails); die;
+        return view('front.products.detail');
+    }
 }
