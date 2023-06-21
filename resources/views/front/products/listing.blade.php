@@ -12,7 +12,7 @@
                     <a href="{{ url('/') }}">Home</a>
                 </li>
                 <li class="is-marked">
-                    <a href="#">Shop</a>
+                    <a href="javascript:;">Shop</a>
                 </li>
             </ul>
         </div>
@@ -115,7 +115,7 @@
                                             </li>
                                         </ul>
                                         <h6 class="item-title">
-                                            <a href="single-product.html">{{ $product['product_name'] }}</a>
+                                            <a href="javascript:;">{{ $product['product_name'] }}</a>
                                         </h6>
                                         <div class="item-description">
                                             <p>{{ $product['description'] }}</p>
