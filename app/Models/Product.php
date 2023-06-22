@@ -46,6 +46,28 @@ class Product extends Model
         return $discounted_price;
     }
 
+    public static function getDiscountAttributePrice($product_id, $size){
+        $proAttrPrice = ProductsAttribute::where(['product_id'=>$product_id, 'size'=>$size])->first()->toArray();
+
+        $proDetails = Product::select('product_discount','category_id')->where('id',$product_id)->first();
+        $proDetails = json_decode(json_encode($proDetails),true);
+        $catDetails = Category::select('category_discount')->where('id',$proDetails['category_id'])->first();
+        $catDetails = json_decode(json_encode($catDetails),true);
+
+        if($proDetails['product_discount']>0){
+            $final_price = $proAttrPrice['price'] - ($proAttrPrice['price']*$proDetails['product_discount']/100);
+            $discount = $proAttrPrice['price'] - $final_price;
+        }else if($catDetails['category_discount']>0){
+            $final_price = $proAttrPrice['price'] - ($proAttrPrice['price']*$catDetails['category_discount']/100);
+            $discount = $proAttrPrice['price'] - $final_price;
+        }
+        else{
+            $final_price = $proAttrPrice['price'];
+            $discount = 0;
+        }
+        return array('product_price'=>$proAttrPrice['price'],'final_price'=>$final_price,'discount'=>$discount);
+    }
+
     public static function isProductNew($product_id){
         $productIds = Product::select('id')->where('status',1)->orderby('id','Desc')->limit(12)->pluck('id');
         $productIds = json_decode(json_encode($productIds),true);

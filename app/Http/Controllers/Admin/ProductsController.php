@@ -248,10 +248,10 @@ class ProductsController extends Controller
                         return redirect()->back()->with('error_message','SKU exists');
                     }
                     //size count
-                    $sizeCount = ProductsAttribute::where(['product_id'=>$id,'size',$data['size'][$key]])->count();
-                    if($sizeCount>0){
-                        return redirect()->back()->with('error_message','Size exists');
-                    }
+                    // $sizeCount = ProductsAttribute::where(['product_id'=>$id,'size',$data['size'][$key]])->count();
+                    // if($sizeCount>0){
+                    //     return redirect()->back()->with('error_message','Size exists');
+                    // }
 
                     $attribute = new ProductsAttribute;
                     $attribute->product_id = $id;

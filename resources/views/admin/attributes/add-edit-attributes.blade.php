@@ -56,7 +56,7 @@
                     </div>
                 @endif
 
-                <form class="forms-sample" action="{{ url('admin/add-edit-attributes/'.$product['id']) }}" method="post">
+                <form class="forms-sample" action="{{ url('admin/add-edit-attributes/'.$product['id']) }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
                         <label style="font-weight: bold;" for="product_name">Product Name</label>
