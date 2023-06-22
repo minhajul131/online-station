@@ -127,4 +127,7 @@ Route::namespace('App\Http\Controllers\Front')->group(function(){
     //confirm vendor account
     Route::get('vendor/confirm/{code}','VendorController@confirmVendor');
 
+    // add to cart
+    Route::post('cart/add','ProductsController@cartAdd');
+
 });

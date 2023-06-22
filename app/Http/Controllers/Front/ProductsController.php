@@ -9,6 +9,8 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductsAttribute;
 use App\Models\Vendor;
+use App\Models\Cart;
+use Session;
 
 class ProductsController extends Controller
 {
@@ -110,6 +112,37 @@ class ProductsController extends Controller
             // echo "<pre>"; print_r($data); die;
             $getDiscountAttributePrice = Product::getDiscountAttributePrice($data['product_id'],$data['size']);
             return $getDiscountAttributePrice;
+        }
+    }
+
+    public function cartAdd(Request $request){
+        if($request->isMethod('post')){
+            $data = $request->all();
+            // echo "<pre>"; print_r($data); die;
+
+            // check product is stock or not
+            $getProductStock = ProductsAttribute::getProductStock($data['product_id'],$data['size']);
+
+            if($getProductStock<$data['quantity']){
+                return redirect()->back()->with('error_message','Required quantity is not available');
+            }
+
+            // generate session id
+            $session_id = Session::get('session_id');
+            if(empty($session_id)){
+                $session_id = Session::getId();
+                Session::put('session_id',$session_id);
+            }
+            // save product in cart table
+            $item = new Cart;
+            $item->session_id = $session_id;
+            $item->product_id = $data['product_id'];
+            $item->size = $data['size'];
+            $item->quantity = $data['quantity'];
+
+            $item->save();
+
+            return redirect()->back()->with('success_message','Product has beed added in cart');
         }
     }
 }
