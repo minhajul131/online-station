@@ -10,37 +10,71 @@ use App\Models\Product;
 
 class ProductsController extends Controller
 {
-    public function listing(){
-        // echo ('test'); die;
-        $url = Route::getFacadeRoot()->current()->uri();
-        $categoryCount = Category::where(['url'=>$url,'status'=>1])->count();
+    public function listing(Request $request){
+        if($request->ajax()){
+            $data = $request->all();
 
-        if($categoryCount>0){
-            $categoryDetails = Category::categoryDetails($url);
+            $url = $data['url'];
+            $_GET['sort'] = $data['sort'];
+            $categoryCount = Category::where(['url'=>$url,'status'=>1])->count();
 
-            $categoryProducts = Product::with('brand')->whereIn('category_id',$categoryDetails['catIds'])->where('status',1);
+            if($categoryCount>0){
+                $categoryDetails = Category::categoryDetails($url);
 
-            // sorting 
-            if(isset($_GET['sort']) && !empty($_GET['sort'])){
-                if($_GET['sort']=="product_latest"){
-                    $categoryProducts->orderby('products.id','Desc');
-                }else if($_GET['sort']=="price_lowest"){
-                    $categoryProducts->orderby('products.product_price','Asc');
-                }else if($_GET['sort']=="price_highest"){
-                    $categoryProducts->orderby('products.product_price','Desc');
-                }else if($_GET['sort']=="name_a_z"){
-                    $categoryProducts->orderby('products.product_name','Asc');
-                }else if($_GET['sort']=="name_z_a"){
-                    $categoryProducts->orderby('products.product_name','Desc');
+                $categoryProducts = Product::with('brand')->whereIn('category_id',$categoryDetails['catIds'])->where('status',1);
+
+                // sorting 
+                if(isset($_GET['sort']) && !empty($_GET['sort'])){
+                    if($_GET['sort']=="product_latest"){
+                        $categoryProducts->orderby('products.id','Desc');
+                    }else if($_GET['sort']=="price_lowest"){
+                        $categoryProducts->orderby('products.product_price','Asc');
+                    }else if($_GET['sort']=="price_highest"){
+                        $categoryProducts->orderby('products.product_price','Desc');
+                    }else if($_GET['sort']=="name_a_z"){
+                        $categoryProducts->orderby('products.product_name','Asc');
+                    }else if($_GET['sort']=="name_z_a"){
+                        $categoryProducts->orderby('products.product_name','Desc');
+                    }
                 }
+
+                $categoryProducts = $categoryProducts->paginate(15);
+
+                return view ('front.products.ajax_products_listing')->with(compact('categoryDetails','categoryProducts','url'));
+            }else{
+                abort(404);
             }
-
-            $categoryProducts = $categoryProducts->paginate(15);
-
-            return view ('front.products.listing')->with(compact('categoryDetails','categoryProducts'));
         }else{
-            abort(404);
-        }
+            $url = Route::getFacadeRoot()->current()->uri();
+            $categoryCount = Category::where(['url'=>$url,'status'=>1])->count();
+
+            if($categoryCount>0){
+                $categoryDetails = Category::categoryDetails($url);
+
+                $categoryProducts = Product::with('brand')->whereIn('category_id',$categoryDetails['catIds'])->where('status',1);
+
+                // sorting 
+                if(isset($_GET['sort']) && !empty($_GET['sort'])){
+                    if($_GET['sort']=="product_latest"){
+                        $categoryProducts->orderby('products.id','Desc');
+                    }else if($_GET['sort']=="price_lowest"){
+                        $categoryProducts->orderby('products.product_price','Asc');
+                    }else if($_GET['sort']=="price_highest"){
+                        $categoryProducts->orderby('products.product_price','Desc');
+                    }else if($_GET['sort']=="name_a_z"){
+                        $categoryProducts->orderby('products.product_name','Asc');
+                    }else if($_GET['sort']=="name_z_a"){
+                        $categoryProducts->orderby('products.product_name','Desc');
+                    }
+                }
+
+                $categoryProducts = $categoryProducts->paginate(15);
+
+                return view ('front.products.listing')->with(compact('categoryDetails','categoryProducts','url'));
+            }else{
+                abort(404);
+            }
+        }       
     }
 
     public function detail($id){
