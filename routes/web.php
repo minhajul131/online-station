@@ -113,6 +113,9 @@ Route::namespace('App\Http\Controllers\Front')->group(function(){
 
     // product detail 
     Route::get('product/{id}','ProductsController@detail');
+
+    // vendor products
+    Route::get('products/{vendorid}','ProductsController@vendorListing');
     
     // product attribute size 
     Route::post('get-product-price','ProductsController@getProductPrice');
