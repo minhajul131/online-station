@@ -198,11 +198,11 @@
                                 </ul>
                             </div> -->
                             <div class="quantity-wrapper u-s-m-b-22">
-                                <span>Quantity:</span>
+                                <!-- <span>Quantity:</span> -->
                                 <div class="quantity">
-                                    <input type="number" name="quantity" class="quantity-text-field" value="1">
-                                    <a class="plus-a" data-max="1000">&#43;</a>
-                                    <a class="minus-a" data-min="1">&#45;</a>
+                                    <input type="hidden" name="quantity" class="quantity-text-field" value="1">
+                                    <!-- <a class="plus-a" data-max="1000">&#43;</a>
+                                    <a class="minus-a" data-min="1">&#45;</a> -->
                                 </div>
                             </div>
                             <div>

@@ -129,5 +129,14 @@ Route::namespace('App\Http\Controllers\Front')->group(function(){
 
     // add to cart
     Route::post('cart/add','ProductsController@cartAdd');
+    
+    // cart
+    Route::get('cart','ProductsController@cart');
+
+    // update cart item quantity
+    Route::post('cart/update','ProductsController@cartUpdate');
+    
+    // delete cart item
+    Route::post('cart/delete','ProductsController@cartDelete');
 
 });

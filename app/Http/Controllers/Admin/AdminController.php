@@ -288,7 +288,8 @@ class AdminController extends Controller
             }
             Admin::where('id',$data['admin_id'])->update(['status'=>$status]);
             $adminDetails = Admin::where('id',$data['admin_id'])->first()->toArray();
-            if($adminDetails['trpe']=="vendor" && $status==1){
+            Vendor::where('id',$adminDetails['vendor_id'])->update(['status'=>$status]);
+            if($adminDetails['trpe']=="vendor" && $status==1){                
                 //send Approval email
                 $email = $adminDetails['email'];
                 $messageData = [

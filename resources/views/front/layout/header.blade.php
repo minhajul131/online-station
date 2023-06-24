@@ -204,7 +204,7 @@ $sections = Section::sections();
                 <span class="mini-total-price float-right">$400.00</span>
             </div>
             <div class="mini-action-anchors">
-                <a href="cart.html" class="cart-anchor">View Cart</a>
+                <a href="/cart" class="cart-anchor">View Cart</a>
                 <a href="checkout.html" class="checkout-anchor">Checkout</a>
             </div>
         </div>
