@@ -33,10 +33,15 @@
     <link rel="stylesheet" href="{{ url('front/css/utility.css') }}">
     <!-- Main -->
     <link rel="stylesheet" href="{{ url('front/css/bundle.css') }}">
+
+    <link rel="stylesheet" href="{{ url('front/css/custom.css') }}">
 </head>
 
 <body>
 
+<div class="loader">
+   <img src="{{ asset('front/images/loaders/loader (1).gif') }}" alt="loading..." />
+</div>
 <!-- app -->
 <div id="app">
     

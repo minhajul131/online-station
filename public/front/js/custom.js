@@ -100,4 +100,73 @@ $(document).ready(function(){
             });
         }
     });
+
+    // register form validation for customer/user
+    $("#registerForm").submit(function(){
+        $(".loader").show();
+        var formdata = $(this).serialize();
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN' : $('meta[name="csrf-token"]').attr('content')
+            },
+            data:formdata,
+            url:'/user/register',
+            type:'post',
+            success:function(resp){
+                if(resp.type=="error"){
+                    $(".loader").hide();
+                    $.each(resp.errors,function(i,error){
+                        $("#register-"+i).attr('style','color:red');
+                        $("#register-"+i).html(error);
+                        setTimeout(function(){
+                            $("#register-"+i).css({'display':'none'});
+                        },5000)
+                    })
+                }else if(resp.type=="success"){
+                    $("#register-success").attr('style','color:green');
+                    $("#register-success").html(resp.message);
+                    $(".loader").hide();
+                    setTimeout(function(){
+                        $("#register-success").css({'display':'none'});
+                    },5000)
+                }
+            },error:function(){
+                alert("error");
+            }
+        })
+    });
+
+    // login form validation for customer/user
+    $("#loginForm").submit(function(){
+        var formdata = $(this).serialize();
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN' : $('meta[name="csrf-token"]').attr('content')
+            },
+            data:formdata,
+            url:'/user/login',
+            type:'post',
+            success:function(resp){
+                if(resp.type=="error"){
+                    $.each(resp.errors,function(i,error){
+                        $("#login-"+i).attr('style','color:red');
+                        $("#login-"+i).html(error);
+                        setTimeout(function(){
+                            $("#login-"+i).css({'display':'none'});
+                        },5000)
+                    })
+                }else if(resp.type=="incorrect"){
+                    $("#login-error").attr('style','color:red');
+                    $("#login-error").html(resp.message);
+                }else if(resp.type=="inactive"){
+                    $("#login-error").attr('style','color:red');
+                    $("#login-error").html(resp.message);
+                }else if(resp.type=="success"){
+                    window.location.href = resp.url;
+                }
+            },error:function(){
+                alert("error");
+            }
+        })
+    });
 });

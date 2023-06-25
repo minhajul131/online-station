@@ -139,4 +139,15 @@ Route::namespace('App\Http\Controllers\Front')->group(function(){
     // delete cart item
     Route::post('cart/delete','ProductsController@cartDelete');
 
+    //customer/user login-register
+    Route::get('user/login-register','UserController@loginRegister');
+    //user register
+    Route::post('user/register','UserController@userRegister');
+    //user login
+    Route::post('user/login','UserController@userLogin');
+    // confirm user account
+    Route::get('/user/confirm/{code}','UserController@confirmAccount');
+    //user logout
+    Route::get('user/logout','UserController@userLogout');
+
 });
