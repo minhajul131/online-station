@@ -81,6 +81,7 @@ $(document).ready(function(){
         });
     });
 
+    //delete cart item
     $(document).on('click','.deleteCartItem',function(){
         var cartid = $(this).data('cartid');
         var result = confirm("Are you sure!! Wants to delete???");
@@ -128,6 +129,83 @@ $(document).ready(function(){
                     $(".loader").hide();
                     setTimeout(function(){
                         $("#register-success").css({'display':'none'});
+                    },5000)
+                }
+            },error:function(){
+                alert("error");
+            }
+        })
+    });
+
+    // update account info form for customer/user
+    $("#accountForm").submit(function(){
+        $(".loader").show();
+        var formdata = $(this).serialize();
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN' : $('meta[name="csrf-token"]').attr('content')
+            },
+            data:formdata,
+            url:'/user/account',
+            type:'post',
+            success:function(resp){
+                if(resp.type=="error"){
+                    $(".loader").hide();
+                    $.each(resp.errors,function(i,error){
+                        $("#account-"+i).attr('style','color:red');
+                        $("#account-"+i).html(error);
+                        setTimeout(function(){
+                            $("#account-"+i).css({'display':'none'});
+                        },5000)
+                    })
+                }else if(resp.type=="success"){
+                    $("#account-success").attr('style','color:green');
+                    $("#account-success").html(resp.message);
+                    $(".loader").hide();
+                    setTimeout(function(){
+                        $("#account-success").css({'display':'none'});
+                    },5000)
+                }
+            },error:function(){
+                alert("error");
+            }
+        })
+    });
+
+    // update password for customer/user
+    $("#passwordForm").submit(function(){
+        $(".loader").show();
+        var formdata = $(this).serialize();
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN' : $('meta[name="csrf-token"]').attr('content')
+            },
+            data:formdata,
+            url:'/user/update-password',
+            type:'post',
+            success:function(resp){
+                if(resp.type=="error"){
+                    $(".loader").hide();
+                    $.each(resp.errors,function(i,error){
+                        $("#password-"+i).attr('style','color:red');
+                        $("#password-"+i).html(error);
+                        setTimeout(function(){
+                            $("#password-"+i).css({'display':'none'});
+                        },5000)
+                    })
+                }else if(resp.type=="incorrect"){
+                    $(".loader").hide();
+                    $("#password-error").attr('style','color:red');
+                    $("#password-error").html(resp.message);
+                    setTimeout(function(){
+                        $("#password-error").css({'display':'none'});
+                    },5000)
+                }else if(resp.type=="success"){
+                    $("#password-success").attr('style','color:green');
+                    $("#password-success").html(resp.message);
+                    $(".loader").hide();
+                    setTimeout(function(){
+                        $("#password-success").css({'display':'none'});
                     },5000)
                 }
             },error:function(){

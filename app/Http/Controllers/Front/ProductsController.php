@@ -147,6 +147,10 @@ class ProductsController extends Controller
                 $countProducts = Cart::where(['product_id'=>$data['product_id'],'size'=>$data['size'],'session_id'=>$session_id])->count();
             }
 
+            if($countProducts>0){
+                return redirect()->back()->with('error_message','Product already in cart');
+            }
+
             // save product in cart table
             $item = new Cart;
             $item->session_id = $session_id;

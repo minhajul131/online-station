@@ -9,7 +9,9 @@ use Auth;
 use Validator;
 use Illuminate\Support\Facades\Mail;
 use Session;
+use Hash;
 use App\Models\Cart;
+use App\Models\Country;
 use Illuminate\Support\Str;
 
 class UserController extends Controller
@@ -76,6 +78,70 @@ class UserController extends Controller
             }else{
                 return response()->json(['type'=>'error','errors'=>$validator->messages()]);
             }
+        }
+    }
+
+    public function userAccount(Request $request){
+        if($request->ajax()){
+            $data = $request->all();
+            // echo "<pre>"; print_r($data); die;
+
+            $validator = Validator::make($request->all(),[
+                'name' => 'required|string|max:100',
+                'city' => 'required|string|max:100',
+                'state' => 'required|string|max:100',
+                'address' => 'required|string|max:100',
+                'country' => 'required|string|max:100',
+                'mobile' => 'required|numeric|digits:11',
+                'pincode' => 'required|numeric',
+            ]);
+
+            if($validator->passes()){
+                // update user details
+                User::where('id',Auth::user()->id)->update(['name'=>$data['name'],'address'=>$data['address'],'city'=>$data['city'],'state'=>$data['state'],'country'=>$data['country'],'pincode'=>$data['pincode'],'mobile'=>$data['mobile']]);
+
+                return response()->json(['type'=>'success','message'=>'Your information updated']);
+            }else{
+                return response()->json(['type'=>'error','errors'=>$validator->messages()]);
+            }
+        }else{
+            $countries = Country::where('status',1)->get()->toArray();
+            return view('front.users.user_account')->with(compact('countries'));
+        }
+    }
+    public function userUpdatePassword(Request $request){
+        if($request->ajax()){
+            $data = $request->all();
+            // echo "<pre>"; print_r($data); die;
+
+            $validator = Validator::make($request->all(),[
+                'current_password' => 'required|min:6',
+                'new_password' => 'required|min:6',
+                'confirm_password' => 'required|min:6|same:new_password',
+            ]);
+
+            if($validator->passes()){
+                // update user pass
+                $current_password = $data['current_password'];
+                $checkPassword = User::where('id',Auth::user()->id)->first();
+                if(Hash::check($current_password,$checkPassword->password)){
+                    // update password
+                    $user = User::find(Auth::user()->id);
+                    $user->password = bcrypt($data['new_password']);
+                    $user->save();
+
+                    return response()->json(['type'=>'success','message'=>'Your password updated']);
+                }else{
+                    return response()->json(['type'=>'incorrect','message'=>'Your current password is incorrect']);
+                }
+
+                return response()->json(['type'=>'success','message'=>'Your information updated']);
+            }else{
+                return response()->json(['type'=>'error','errors'=>$validator->messages()]);
+            }
+        }else{
+            $countries = Country::where('status',1)->get()->toArray();
+            return view('front.users.user_account')->with(compact('countries'));
         }
     }
 

@@ -140,9 +140,17 @@ Route::namespace('App\Http\Controllers\Front')->group(function(){
     Route::post('cart/delete','ProductsController@cartDelete');
 
     //customer/user login-register
-    Route::get('user/login-register','UserController@loginRegister');
+    Route::get('user/login-register',['as'=>'login','uses'=>'UserController@loginRegister']);
     //user register
     Route::post('user/register','UserController@userRegister');
+    
+    Route::group(['middleware'=>['auth']],function(){
+        //user account
+        Route::match(['get','post'],'user/account','UserController@userAccount');
+        // user update pass
+        Route::post('user/update-password','UserController@userUpdatePassword');
+    });
+
     //user login
     Route::post('user/login','UserController@userLogin');
     // confirm user account
