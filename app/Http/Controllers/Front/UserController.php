@@ -10,6 +10,7 @@ use Validator;
 use Illuminate\Support\Facades\Mail;
 use Session;
 use App\Models\Cart;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -134,6 +135,41 @@ class UserController extends Controller
             }
         }else{
             abort(404);
+        }
+    }
+
+    public function forgotPassword(Request $request){
+        if($request->ajax()){
+            $data = $request->all();
+            // echo "<pre>"; print_r($data); die;
+            
+            // validation for email
+            $validator = Validator::make($request->all(),[
+                'email' => 'required|email|exists:users',
+            ],[
+                'email.exists'=>'Email does not exists',
+            ]);
+
+            if($validator->passes()){
+                //generate new password
+                $new_password = Str::random(16);
+                //update new pass to table
+                User::where('email',$data['email'])->update(['password'=>bcrypt($new_password)]);
+                //get user detail
+                $userDetails = User::where('email',$data['email'])->first()->toArray();
+                //sent mail to user
+                $email = $data['email'];
+                $messageData = ['name'=>$userDetails['name'],'email'=>$email,'password'=>$new_password];
+                Mail::send('emails.user_forgot_password',$messageData,function($message)use($email){
+                    $message->to($email)->subject('Youe Password is reset');
+                });
+
+                return response()->json(['type'=>'success','message'=>'Check your email. Reset password have sent to your email']);
+            }else{
+                return response()->json(['type'=>'error','errors'=>$validator->messages()]);
+            }
+        }else{
+            return view('front.users.forgot_password');
         }
     }
 

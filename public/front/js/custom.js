@@ -169,4 +169,39 @@ $(document).ready(function(){
             }
         })
     });
+
+    // forgot password form for customer/user
+    $("#forgotForm").submit(function(){
+        $(".loader").show();
+        var formdata = $(this).serialize();
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN' : $('meta[name="csrf-token"]').attr('content')
+            },
+            data:formdata,
+            url:'/user/forgot-password',
+            type:'post',
+            success:function(resp){
+                if(resp.type=="error"){
+                    $(".loader").hide();
+                    $.each(resp.errors,function(i,error){
+                        $("#forgot-"+i).attr('style','color:red');
+                        $("#forgot-"+i).html(error);
+                        setTimeout(function(){
+                            $("#forgot-"+i).css({'display':'none'});
+                        },5000)
+                    })
+                }else if(resp.type=="success"){
+                    $("#forgot-success").attr('style','color:green');
+                    $("#forgot-success").html(resp.message);
+                    $(".loader").hide();
+                    setTimeout(function(){
+                        $("#forgot-success").css({'display':'none'});
+                    },5000)
+                }
+            },error:function(){
+                alert("error");
+            }
+        })
+    });
 });
