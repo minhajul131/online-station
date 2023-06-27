@@ -89,8 +89,8 @@
                 </a>    
                 <div class="collapse" id="user-manage">
                     <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"> <a class="nav-link" href="{{ url('admin/users') }}">Users</a></li>
-                        <li class="nav-item"> <a class="nav-link" href="{{ url('admin/subscribers') }}">Subscribers</a></li>
+                        <li class="nav-item"> <a @if(Session::get('page')=="users") style="background:#FFFFFF !important; color: #4B49AC !important;" else style="background:#7CFC00 !important; color: #4B49AC !important;" @endif class="nav-link" href="{{ url('admin/users') }}">Users</a></li>
+                        <li class="nav-item"> <a @if(Session::get('page')=="subscribers") style="background:#FFFFFF !important; color: #4B49AC !important;" else style="background:#7CFC00 !important; color: #4B49AC !important;" @endif class="nav-link" href="{{ url('admin/subscribers') }}">Subscribers</a></li>
                     </ul>
                 </div>
             </li>

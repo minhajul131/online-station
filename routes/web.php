@@ -99,6 +99,10 @@ Route::group(['prefix'=>'admin'],function(){
         Route::post('/update-banner-status',[App\Http\Controllers\Admin\BannersController::class,'updateBannerStatus']);
         Route::get('/delete-banner/{id}',[App\Http\Controllers\Admin\BannersController::class,'deleteBanner']);
         Route::match(['get','post'],'/add-edit-banner/{id?}',[App\Http\Controllers\Admin\BannersController::class,'addEditBanner']);
+        
+        // user
+        Route::get('/users',[App\Http\Controllers\Admin\UserController::class,'users']);
+        Route::post('/update-user-status',[App\Http\Controllers\Admin\UserController::class,'updateUserStatus']);
     });
 });
 
