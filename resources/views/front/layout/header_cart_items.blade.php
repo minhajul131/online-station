@@ -31,7 +31,7 @@ $getCartItems = getCartItems();
         </div>
         <div class="mini-action-anchors">
             <a href="{{url('/cart')}}" class="cart-anchor">View Cart</a>
-            <a href="checkout.html" class="checkout-anchor">Checkout</a>
+            <a href="{{url('/checkout')}}" class="checkout-anchor">Checkout</a>
         </div>
     </div>
 </div>

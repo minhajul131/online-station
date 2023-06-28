@@ -153,6 +153,16 @@ Route::namespace('App\Http\Controllers\Front')->group(function(){
         Route::match(['get','post'],'user/account','UserController@userAccount');
         // user update pass
         Route::post('user/update-password','UserController@userUpdatePassword');
+        
+        // user update pass
+        Route::match(['get','post'],'checkout','ProductsController@checkout');
+
+        // get delivery address
+        Route::post('get-delivery-address','AddressController@getDeliveryAddress');
+        // save delivery address
+        Route::post('save-delivery-address','AddressController@saveDeliveryAddress');
+        // save delivery address
+        Route::post('remove-delivery-address','AddressController@removeDeliveryAddress');
     });
 
     //user login

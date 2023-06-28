@@ -9,8 +9,10 @@ use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductsAttribute;
+use App\Models\DeliveryAddress;
 use App\Models\Vendor;
 use App\Models\Cart;
+use App\Models\Country;
 use Session;
 use Auth;
 
@@ -219,5 +221,12 @@ class ProductsController extends Controller
             return response()->json(['totalCartItems'=>$totalCartItems,'view'=>(String)View::make('front.products.cart_items')->with(compact('getCartItems')),'headerview'=>(String)View::make('front.layout.header_cart_items')->with(compact('getCartItems'))]);
 
         }
+    }
+
+    public function checkout(){
+        $deliveryAddresses = DeliveryAddress::deliveryAddresses();
+        $countries = Country::where('status',1)->get()->toArray();
+        // dd($deliveryAddresses); die;
+        return view('front.products.checkout')->with(compact('deliveryAddresses','countries'));
     }
 }
