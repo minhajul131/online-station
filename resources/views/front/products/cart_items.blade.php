@@ -73,22 +73,7 @@
     </table>
 </div>
 <!-- Products-List-Wrapper /- -->
-<!-- Coupon -->
-<div class="coupon-continue-checkout u-s-m-b-60">
-    <div class="coupon-area">
-        <h6>Enter your coupon code if you have one.</h6>
-        <div class="coupon-field">
-            <label class="sr-only" for="coupon-code">Apply Coupon</label>
-            <input id="coupon-code" type="text" class="text-field" placeholder="Coupon Code">
-            <button type="submit" class="button">Apply Coupon</button>
-        </div>
-    </div>
-    <div class="button-area">
-        <a href="{{url('/')}}" class="continue">Continue Shopping</a>
-        <a href="{{url('/checkout')}}" class="checkout">Proceed to Checkout</a>
-    </div>
-</div>
-<!-- Coupon /- -->
+
 
 <!-- Billing -->
 <div class="calculation u-s-m-b-60">
@@ -113,7 +98,13 @@
                         <h3 class="calc-h3 u-s-m-b-0">Coupon Discount</h3>
                     </td>
                     <td>
-                        <span class="calc-text">Taka: 00</span>
+                        <span class="calc-text couponAmount">
+                            @if(Session::has('couponAmount'))
+                                Taka: {{ Session::get('couponAmount') }}
+                            @else
+                                Taka: 0
+                            @endif
+                        </span>
                     </td>
                 </tr>                
                 <tr>
@@ -121,7 +112,7 @@
                         <h3 class="calc-h3 u-s-m-b-0">Total</h3>
                     </td>
                     <td>
-                        <span class="calc-text">Taka: {{ $total_price }}</span>
+                        <span class="calc-text grand_total">Taka: {{ $total_price -  Session::get('couponAmount') }}</span>
                     </td>
                 </tr>
             </tbody>

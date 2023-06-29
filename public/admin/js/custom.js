@@ -7,6 +7,7 @@ $(document).ready(function(){
     $('#products').DataTable();
     $('#banners').DataTable();
     $('#users').DataTable();
+    $('#coupons').DataTable();
 
     $(".nav-item").removeClass("active");
     $(".nav-link").removeClass("active");
@@ -250,6 +251,30 @@ $(document).ready(function(){
         })
     });
 
+    $(document).on("click",".updateCouponStatus",function(){
+        var status = $(this).children("i").attr("status");
+        var coupon_id = $(this).attr("coupon_id");
+
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN' : $('meta[name="csrf-token"]').attr('content')
+            },
+            type: 'post',
+            url:'/admin/update-coupon-status',
+            data:{status:status,coupon_id:coupon_id},
+            success:function(resp){
+                // alert(resp);
+                if(resp['status']==0){
+                    $('#coupon-'+coupon_id).html("<i style='font-size:25px;' class='mdi mdi-bookmark-outline' status='Inactive'></i>")
+                }else if(resp['status']==1){
+                    $('#coupon-'+coupon_id).html("<i style='font-size:25px;' class='mdi mdi-bookmark-check' status='Active'></i>")
+                }
+            },error:function(){
+                alert("Error");
+            }
+        })
+    });
+
     //confirm delete (Normal js)
     // $(".confirmDelete").click(function(){
     //     var title = $(this).attr("title");
@@ -323,6 +348,14 @@ $(document).ready(function(){
         e.preventDefault();
         $(this).parent('div').remove(); //Remove field html
         x--; //Decrement field counter
+    });
+
+    // show/hide coupon code field
+    $("#ManualCoupon").click(function(){
+        $("#couponField").show();
+    });
+    $("#AutomaticCoupon").click(function(){
+        $("#couponField").hide();
     });
 
 });

@@ -103,6 +103,12 @@ Route::group(['prefix'=>'admin'],function(){
         // user
         Route::get('/users',[App\Http\Controllers\Admin\UserController::class,'users']);
         Route::post('/update-user-status',[App\Http\Controllers\Admin\UserController::class,'updateUserStatus']);
+        
+        // coupon
+        Route::get('/coupons',[App\Http\Controllers\Admin\CouponsController::class,'coupons']);
+        Route::post('/update-coupon-status',[App\Http\Controllers\Admin\CouponsController::class,'updateCouponStatus']);
+        Route::get('/delete-coupon/{id}',[App\Http\Controllers\Admin\CouponsController::class,'deleteCoupon']);
+        Route::match(['get','post'],'/add-edit-coupon/{id?}',[App\Http\Controllers\Admin\CouponsController::class,'addEditCoupon']);
     });
 });
 
@@ -163,6 +169,9 @@ Route::namespace('App\Http\Controllers\Front')->group(function(){
         Route::post('save-delivery-address','AddressController@saveDeliveryAddress');
         // save delivery address
         Route::post('remove-delivery-address','AddressController@removeDeliveryAddress');
+
+        // apply coupon
+        Route::post('apply-coupon','ProductsController@applyCoupon');
     });
 
     //user login

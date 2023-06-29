@@ -360,4 +360,45 @@ $(document).ready(function(){
             })
         }
     });
+
+    //apply coupon
+    $("#ApplyCoupon").submit(function(){
+        var user = $(this).attr("user");
+
+        if(user==1){
+
+        }else{
+            alert("Login to apply coupon");
+            return false;
+        }
+
+        var code = $("#code").val();
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN' : $('meta[name="csrf-token"]').attr('content')
+            },
+            data:{code:code},
+            url:'/apply-coupon',
+            type:'post',
+            success:function(resp){
+                if(resp.message!=""){
+                    alert(resp.message);
+                }
+                $(".totalCartItems").html(resp.totalCartItems);
+                $("#appendCartItems").html(resp.view);
+                $("#appendHeaderCartItems").html(resp.headerview);
+                if(resp.couponAmount>0){
+                    $(".couponAmount").text("Taka:"+resp.couponAmount);
+                }else{
+                    $(".couponAmount").text("Taka: 0");
+                }
+                if(resp.grand_total){
+                    $(".grand_total").text("Taka: "+resp.grand_total);
+                }
+            },error:function(){
+                alert("ErRor");
+            }
+        })
+    });
+
 });
