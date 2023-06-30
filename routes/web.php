@@ -172,6 +172,9 @@ Route::namespace('App\Http\Controllers\Front')->group(function(){
 
         // apply coupon
         Route::post('apply-coupon','ProductsController@applyCoupon');
+        
+        // after place order thanks
+        Route::get('thanks','ProductsController@thanks');
     });
 
     //user login

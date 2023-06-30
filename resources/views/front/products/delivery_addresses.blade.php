@@ -1,7 +1,7 @@
 @if($deliveryAddresses>0)
     <h4 class="section-h4">Delivery Details</h4>
     @foreach($deliveryAddresses as $address)
-        <div style="float:left; margin-right:5px;" class="control-group"><input type="radio" id="address{{ $address['id'] }}" name="address_id" value="address{{ $address['id'] }}"></div>
+        <div style="float:left; margin-right:5px;" class="control-group"><input type="radio" id="{{ $address['id'] }}" name="address_id" value="{{ $address['id'] }}"></div>
         <div><label class="control-label">{{ $address['name'] }}, {{ $address['address'] }}, {{ $address['city'] }}, {{ $address['state'] }}, {{ $address['country'] }}, {{ $address['pincode'] }}, {{ $address['mobile'] }}</label>
             <a style="float: right; margin-left: 10px;" href="javascript:;" data-addressid="{{ $address['id'] }}" class="removeAddress button-outline-secondary">R</a>&nbsp;&nbsp;&nbsp;
             <a style="float: right;" href="javascript:;" data-addressid="{{ $address['id'] }}" class="editAddress button-outline-secondary">E</a>&nbsp;&nbsp;&nbsp;

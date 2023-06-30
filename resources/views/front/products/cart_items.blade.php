@@ -90,7 +90,7 @@
                         <h3 class="calc-h3 u-s-m-b-0">Subtotal</h3>
                     </td>
                     <td>
-                        <span class="calc-text">Taka: {{ $total_price }}</span>
+                        <span class="calc-text">৳ {{ $total_price }}</span>
                     </td>
                 </tr>
                 <tr>
@@ -100,9 +100,9 @@
                     <td>
                         <span class="calc-text couponAmount">
                             @if(Session::has('couponAmount'))
-                                Taka: {{ Session::get('couponAmount') }}
+                                ৳ {{ Session::get('couponAmount') }}
                             @else
-                                Taka: 0
+                                ৳ 0
                             @endif
                         </span>
                     </td>
@@ -112,7 +112,7 @@
                         <h3 class="calc-h3 u-s-m-b-0">Total</h3>
                     </td>
                     <td>
-                        <span class="calc-text grand_total">Taka: {{ $total_price -  Session::get('couponAmount') }}</span>
+                        <span class="calc-text grand_total">৳ {{ $total_price -  Session::get('couponAmount') }}</span>
                     </td>
                 </tr>
             </tbody>

@@ -69,26 +69,26 @@
                                     <tbody>
                                     @php $total_price = 0 @endphp
                                     @foreach($getCartItems as $item)
-                                    <?php $getDiscountAttributePrice = Product::getDiscountAttributePrice($item['product_id'],$item['size']); ?>
-                                        <tr>
-                                            <td>
-                                            <a href="{{ url('product/'.$item['product_id']) }}">
-                                                <img style="width: 30px" src="{{ asset('front/images/product_images/small/'.$item['product']['product_image']) }}" alt="Product">
-                                                <h6 class="order-h6">{{ $item['product']['product_name'] }} - {{ $item['size'] }}</h6></a>
-                                                <span class="order-span-quantity">x {{ $item['quantity'] }}</span>
-                                            </td>
-                                            <td>
-                                                <h6 class="order-h6">৳ {{ $getDiscountAttributePrice['final_price'] * $item['quantity'] }}/-</h6>
-                                            </td>
-                                        </tr>
-                                    @php $total_price = $total_price + ($getDiscountAttributePrice['final_price'] * $item['quantity']) @endphp
+                                        <?php $getDiscountAttributePrice = Product::getDiscountAttributePrice($item['product_id'],$item['size']); ?>
+                                            <tr>
+                                                <td>
+                                                <a href="{{ url('product/'.$item['product_id']) }}">
+                                                    <img style="width: 30px" src="{{ asset('front/images/product_images/small/'.$item['product']['product_image']) }}" alt="Product">
+                                                    <h6 class="order-h6">{{ $item['product']['product_name'] }} - {{ $item['size'] }}</h6></a>
+                                                    <span class="order-span-quantity">x {{ $item['quantity'] }}</span>
+                                                </td>
+                                                <td>
+                                                    <h6 class="order-h6">৳ {{ $getDiscountAttributePrice['final_price'] * $item['quantity'] }}/-</h6>
+                                                </td>
+                                            </tr>
+                                        @php $total_price = $total_price + ($getDiscountAttributePrice['final_price'] * $item['quantity']) @endphp
                                     @endforeach
                                         <tr>
                                             <td>
                                                 <h3 class="order-h3">Subtotal</h3>
                                             </td>
                                             <td>
-                                                <h3 class="order-h3">৳ {{ $total_price }}/-</h3>
+                                                <h3 class="order-h3">৳ {{ $total_price }}</h3>
                                             </td>
                                         </tr>
                                         <tr>
@@ -96,7 +96,21 @@
                                                 <h3 class="order-h3">Shipping</h3>
                                             </td>
                                             <td>
-                                                <h3 class="order-h3">৳ 0.00/-</h3>
+                                                <h3 class="order-h3">৳ 0.00</h3>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <h3 class="order-h3">Coupon Discount</h3>
+                                            </td>
+                                            <td>
+                                                <h3 class="order-h3">
+                                                    @if(Session::has('couponAmount'))
+                                                        ৳ {{ Session::get('couponAmount') }}
+                                                    @else
+                                                        ৳  0
+                                                    @endif
+                                                </h3>
                                             </td>
                                         </tr>
                                         <tr>
@@ -104,7 +118,7 @@
                                                 <h3 class="order-h3">Total</h3>
                                             </td>
                                             <td>
-                                                <h3 class="order-h3">৳ {{ $total_price }}/-</h3>
+                                                <h3 class="order-h3">৳ {{ $total_price -  Session::get('couponAmount') }}</h3>
                                             </td>
                                         </tr>
                                     </tbody>
