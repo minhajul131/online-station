@@ -175,6 +175,9 @@ Route::namespace('App\Http\Controllers\Front')->group(function(){
         
         // after place order thanks
         Route::get('thanks','ProductsController@thanks');
+        
+        // users orders
+        Route::get('user/orders/{id?}','OrderController@orders');
     });
 
     //user login
