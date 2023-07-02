@@ -90,4 +90,13 @@ class Product extends Model
         return $getProductImage['product_image'];
     }
 
+    public static function getProductStatus($product_id){
+        $getProductStatus = Product::select('status')->where('id',$product_id)->first();
+        
+        return $getProductStatus->status;    
+    }
+    public static function deleteCartProduct($product_id){
+        Cart::where('product_id',$product_id)->delete();
+    }
+
 }

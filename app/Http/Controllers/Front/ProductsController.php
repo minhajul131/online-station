@@ -251,6 +251,48 @@ class ProductsController extends Controller
         if($request->isMethod('post')){
             $data = $request->all();
             // echo "<pre>"; print_r($data); die;
+
+            // web security
+            foreach ($getCartItems as $item) {
+                // prevent disabled product
+                $product_status = Product::getProductStatus($item['product_id']);
+                if($product_status==0){
+                    // Product::deleteCartProduct($item['product_id']);
+                    // $message = "One of the product is disabled! Try another..";
+                    $message = $item['product']['product_name']." with ".$item['size']." size is not available. Try another..";
+
+                    return redirect('/cart')->with('error_message',$message);
+                }
+
+                // prevent sold out product
+                $getProductStock = ProductsAttribute::getProductStock($item['product_id'],$item['size']);
+                if($getProductStock==0){
+                    // Product::deleteCartProduct($item['product_id']);
+                    // $message = "One of the product is sold out! Try another..";
+                    $message = $item['product']['product_name']." with ".$item['size']." size is not available. Try another..";
+                    
+                    return redirect('/cart')->with('error_message',$message);
+                }
+
+                // prevent disabled attibute product
+                $getAttributeStatus = ProductsAttribute::getAttributeStatus($item['product_id'],$item['size']);
+                if($getAttributeStatus==0){
+                    // Product::deleteCartProduct($item['product_id']);
+                    $message = $item['product']['product_name']." with ".$item['size']." size is not available. Try another..";
+                    
+                    return redirect('/cart')->with('error_message',$message);
+                }
+
+                // prevent disabled category product
+                $getCategoryStatus = Category::getCategoryStatus($item['product']['category_id']);
+                if($getCategoryStatus==0){
+                    // Product::deleteCartProduct($item['product_id']);
+                    $message = $item['product']['product_name']." with ".$item['size']." size is not available. Try another..";
+                    
+                    return redirect('/cart')->with('error_message',$message);
+                }
+            }
+
             // select delivery address
             if(empty($data['address_id'])){
                 $message = "Please select Delivery address";
@@ -342,7 +384,13 @@ class ProductsController extends Controller
                 $getDiscountAttributePrice = Product::getDiscountAttributePrice($item['product_id'],$item['size']);
                 $cartItem->product_price = $getDiscountAttributePrice['final_price'];
                 $cartItem->product_qty = $item['quantity'];
+                $cartItem->item_status = "New";
                 $cartItem->save();
+
+                // reduce stock
+                $getProductStock = ProductsAttribute::getProductStock($item['product_id'],$item['size']);
+                $newStock = $getProductStock - $item['quantity'];
+                ProductsAttribute::where(['product_id'=>$item['product_id'],'size'=>$item['size']])->update(['stock'=>$newStock]);
             }
 
             // insert order id in session

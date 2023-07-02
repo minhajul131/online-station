@@ -109,6 +109,12 @@ Route::group(['prefix'=>'admin'],function(){
         Route::post('/update-coupon-status',[App\Http\Controllers\Admin\CouponsController::class,'updateCouponStatus']);
         Route::get('/delete-coupon/{id}',[App\Http\Controllers\Admin\CouponsController::class,'deleteCoupon']);
         Route::match(['get','post'],'/add-edit-coupon/{id?}',[App\Http\Controllers\Admin\CouponsController::class,'addEditCoupon']);
+
+        // orders
+        Route::get('/orders',[App\Http\Controllers\Admin\OrderController::class,'orders']);
+        Route::get('/orders/{id}',[App\Http\Controllers\Admin\OrderController::class,'orderDetails']);
+        Route::post('/update-order-status',[App\Http\Controllers\Admin\OrderController::class,'updateOrderStatus']);
+        Route::post('/update-order-item-status',[App\Http\Controllers\Admin\OrderController::class,'updateOrderItemStatus']);
     });
 });
 

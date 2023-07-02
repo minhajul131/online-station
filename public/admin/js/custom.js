@@ -8,6 +8,7 @@ $(document).ready(function(){
     $('#banners').DataTable();
     $('#users').DataTable();
     $('#coupons').DataTable();
+    $('#orders').DataTable();
 
     $(".nav-item").removeClass("active");
     $(".nav-link").removeClass("active");

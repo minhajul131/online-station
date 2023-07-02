@@ -100,6 +100,7 @@ class AdminController extends Controller
 
     public function updateVendorDetails($slug, Request $request){
         if($slug=="personal"){
+            Session::put('page','update-vendor-parsonal');
             if($request->isMethod('post')){
                 $data = $request->all();
 
@@ -140,6 +141,7 @@ class AdminController extends Controller
             }
             $vendorDetails = Vendor::where('id',Auth::guard('admin')->user()->vendor_id)->first()->toArray();
         }else if($slug=="business"){
+            Session::put('page','update-vendor-business');
             if($request->isMethod('post')){
                 $data = $request->all();
 
@@ -189,6 +191,7 @@ class AdminController extends Controller
                 $vendorDetails = array();
             }
         }else if($slug=="bank"){
+            Session::put('page','update-vendor-bank');
             if($request->isMethod('post')){
                 $data = $request->all();
 

@@ -138,18 +138,20 @@ class ProductsController extends Controller
             $product->category_id = $data['category_id'];
             $product->brand_id = $data['brand_id'];
 
-            $adminType = Auth::guard('admin')->user()->trpe;
-            $vendor_id = Auth::guard('admin')->user()->vendor_id;
-            $admin_id = Auth::guard('admin')->user()->id;
+            if($id==""){
+                $adminType = Auth::guard('admin')->user()->trpe;
+                $vendor_id = Auth::guard('admin')->user()->vendor_id;
+                $admin_id = Auth::guard('admin')->user()->id;
 
-            $product->admin_type = $adminType;
-            $product->admin_id = $admin_id;
-            if($adminType=="vendor"){
-                $product->vendor_id = $vendor_id;
-            }else{
-                $product->vendor_id = 0;
+                $product->admin_type = $adminType;
+                $product->admin_id = $admin_id;
+                if($adminType=="vendor"){
+                    $product->vendor_id = $vendor_id;
+                }else{
+                    $product->vendor_id = 0;
+                }
             }
-
+            
             if(empty($data['product_discount'])){
                 $data['product_discount'] = 0;
             }

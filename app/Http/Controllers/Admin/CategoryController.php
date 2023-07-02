@@ -40,7 +40,7 @@ class CategoryController extends Controller
             $getCategories = array();
             $message = "Category Added";
         }else{
-            $title = "Add Category";
+            $title = "Edit Category";
             $category = Category::find($id);
             $getCategories = Category::with('subcategories')->where(['parent_id'=>0,'section_id'=>$category['section_id']])->get();
             $message = "Category Updated";
