@@ -9,10 +9,10 @@
             <ul class="bread-crumb">
                 <li class="has-separator">
                     <i class="ion ion-md-home"></i>
-                    <a href="index.html">Home</a>
+                    <a href="{{ url('/') }}">Home</a>
                 </li>
                 <li class="is-marked">
-                    <a href="account.html">Account</a>
+                    <a href="{{ url('vendor/login-register') }}">Account</a>
                 </li>
             </ul>
         </div>
