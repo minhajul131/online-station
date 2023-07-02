@@ -27,10 +27,10 @@
                         <h6>COMPANY</h6>
                         <ul>
                             <li>
-                                <a href="about.html">About Us</a>
+                                <a href="{{ url('about') }}">About Us</a>
                             </li>
                             <li>
-                                <a href="contact.html">Contact Us</a>
+                                <a href="{{ url('contact') }}">Contact Us</a>
                             </li>
                             <li>
                                 <a href="faq.html">FAQ</a>
@@ -85,10 +85,10 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="mailto:info@sitemakers.in">
+                                <a href="mailto:info@abc.com">
                                     <i class="fas fa-envelope u-s-m-r-9"></i>
                                     <span>
-                                        minhajul</span>
+                                    info@abc.com</span>
                                 </a>
                             </li>
                         </ul>
@@ -139,7 +139,7 @@
                 </ul>
             </div>
             <p class="copyright-text">Copyright &copy; 2023
-                <a target="_blank" rel="nofollow" href="https://youtube.com/stackdevelopers"></a> | All Right Reserved</p>
+                <a target="_blank" rel="nofollow" href="#"></a> | All Right Reserved</p>
         </div>
     </div>
     <!-- Bottom-Footer /- -->

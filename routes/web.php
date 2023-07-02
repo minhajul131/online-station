@@ -194,5 +194,11 @@ Route::namespace('App\Http\Controllers\Front')->group(function(){
     Route::match(['get','post'],'user/forgot-password','UserController@forgotPassword');
     //user logout
     Route::get('user/logout','UserController@userLogout');
+    
+    //search product
+    Route::get('search-products','ProductsController@listing');
+    
+    // contact us
+    Route::match(['get','post'],'contact','InfoController@contact');
 
 });

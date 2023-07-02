@@ -13,12 +13,12 @@ $totalCartItems = totalCartItems();
                     <li>
                         <a href="tel:+111222333">
                             <i class="fas fa-phone u-c-brand u-s-m-r-9"></i>
-                            Telephone:+111-222-333</a>
+                            Call:+111-222-333</a>
                     </li>
                     <li>
                         <a href="mailto:info@sitemakers.in">
                             <i class="fas fa-envelope u-c-brand u-s-m-r-9"></i>
-                            E-mail: info@sitemakers.in
+                            E-mail: info@abc.com
                         </a>
                     </li>
                 </ul>
@@ -88,7 +88,7 @@ $totalCartItems = totalCartItems();
                             </li>
                         </ul>
                     </li>
-                    <li>
+                    <!-- <li>
                         <a>ENG
                             <i class="fas fa-chevron-down u-s-m-l-9"></i>
                         </a>
@@ -100,6 +100,7 @@ $totalCartItems = totalCartItems();
                                 <a href="#">ARB</a>
                             </li>
                         </ul>
+                    </li> -->
                 </ul>
             </nav>
         </div>
@@ -118,9 +119,9 @@ $totalCartItems = totalCartItems();
                     </div>
                 </div>
                 <div class="col-lg-6 u-d-none-lg">
-                    <form class="form-searchbox">
+                    <form class="form-searchbox" action="{{ url('search-products') }}" method="get">
                         <label class="sr-only" for="search-landscape">Search</label>
-                        <input id="search-landscape" type="text" class="text-field" placeholder="Search everything">
+                        <input id="search-landscape" name="search" type="text" class="text-field" placeholder="Search everything">
                         <div class="select-box-position">
                             <div class="select-box-wrapper select-hide">
                                 <label class="sr-only" for="select-category">Choose category for search</label>
@@ -129,7 +130,7 @@ $totalCartItems = totalCartItems();
                                         All
                                     </option>
                                     @foreach($sections as $section)
-                                    <option value="">{{ $section['name'] }}</option>
+                                    <option value="{{ $section['id'] }}">{{ $section['name'] }}</option>
                                     @endforeach
                                 </select>
                             </div>

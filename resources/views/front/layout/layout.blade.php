@@ -45,13 +45,13 @@
 <!-- app -->
 <div id="app">
     
-    @include('front.layout.header');
+    @include('front.layout.header')
     
-    @yield('content');
+    @yield('content')
 
-    @include('front.layout.footer');
+    @include('front.layout.footer')
 
-    @include('front.layout.modals');
+    @include('front.layout.modals')
     
 </div>
 <!-- app /- -->
