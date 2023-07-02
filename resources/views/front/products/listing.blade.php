@@ -48,6 +48,7 @@
                             <i class="fas fa-th"></i>
                         </a>
                     </div> -->
+                    @if(!isset($_REQUEST['search']))
                     <!-- Toolbar Sorter 1  -->
                     <form name="sortProducts" id="sortProducts">
                         <input type="hidden" name="url" id="url" value="{{ $url }}">
@@ -68,6 +69,7 @@
                         </div>
                     </form>
                     <!-- //end Toolbar Sorter 1  -->
+                    @endif
                     <!-- Toolbar Sorter 2  -->
                     <div class="toolbar-sorter-2">
                         <div class="select-box-wrapper">
@@ -86,10 +88,12 @@
                     @include('front.products.ajax_products_listing')
                 </div>
                 <!-- Row-of-Product-Container /- -->
+                @if(!isset($_REQUEST['search']))
                 @if(isset($_GET['sort']))
                     <div>{{ $categoryProducts->appends(['sort'=>$_GET['sort']])->links() }}</div>
                 @else
                     <div>{{ $categoryProducts->links() }}</div>
+                @endif
                 @endif
                 <div>&nbsp</div>
                 <div>{{ $categoryDetails['categoryDetails']['description'] }}</div>

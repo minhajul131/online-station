@@ -113,7 +113,7 @@ $totalCartItems = totalCartItems();
                 <div class="col-lg-3 col-md-9 col-sm-6">
                     <div class="brand-logo text-lg-center">
                         <a href="{{ url('/') }}">
-                            <h5>Online Station</h5>
+                            <h5><b>Online Station</b></h5>
                             <!-- <img src="{{ asset('front/images/main-logo/stack-developers-logo.png') }}" alt="Stack Developers" class="app-brand-logo"> -->
                         </a>
                     </div>
@@ -121,16 +121,16 @@ $totalCartItems = totalCartItems();
                 <div class="col-lg-6 u-d-none-lg">
                     <form class="form-searchbox" action="{{ url('search-products') }}" method="get">
                         <label class="sr-only" for="search-landscape">Search</label>
-                        <input id="search-landscape" name="search" type="text" class="text-field" placeholder="Search everything">
+                        <input id="search-landscape" name="search" type="text" class="text-field" placeholder="Search everything" @if(isset($_REQUEST['search']) && !empty($_REQUEST['search'])) value="{{ $_REQUEST['search'] }}" @endif>
                         <div class="select-box-position">
                             <div class="select-box-wrapper select-hide">
                                 <label class="sr-only" for="select-category">Choose category for search</label>
-                                <select class="select-box" id="select-category">
+                                <select class="select-box" id="select-category" name="section_id">
                                     <option selected="selected" value="">
                                         All
                                     </option>
                                     @foreach($sections as $section)
-                                    <option value="{{ $section['id'] }}">{{ $section['name'] }}</option>
+                                    <option @if(isset($_REQUEST['section_id']) && !empty($_REQUEST['section_id']) && $_REQUEST['section_id']==$section['id']) selected @endif value="{{ $section['id'] }}">{{ $section['name'] }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -243,21 +243,21 @@ $totalCartItems = totalCartItems();
                 <div class="col-lg-9">
                     <ul class="bottom-nav g-nav u-d-none-lg">
                         <li>
-                            <a href="listing-without-filters.html">New Arrivals
+                            <a href="{{ url('search-products?search=new-arrivals') }}">New Arrivals
                                 <span class="superscript-label-new">NEW</span>
                             </a>
                         </li>
-                        <li>
-                            <a href="listing-without-filters.html">Best Seller
+                        <!-- <li>
+                            <a href="#">Best Seller
                                 <span class="superscript-label-hot">HOT</span>
                             </a>
-                        </li>
+                        </li> -->
                         <li>
-                            <a href="listing-without-filters.html">Featured
+                            <a href="{{ url('search-products?search=featured') }}">Featured
                             </a>
                         </li>
                         <li>
-                            <a href="listing-without-filters.html">Discounted
+                            <a href="{{ url('search-products?search=discounted') }}">Discounted
                                 <span class="superscript-label-discount">-30%</span>
                             </a>
                         </li>

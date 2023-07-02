@@ -639,7 +639,7 @@
             </section>
             <!-- Similar-Products /- -->
             <!-- Recently-View-Products  -->
-            <section class="section-maker">
+            <!-- <section class="section-maker">
                 <div class="container">
                     <div class="sec-maker-header text-center">
                         <h3 class="sec-maker-h3">Recently View</h3>
@@ -691,7 +691,7 @@
                         </div>
                     </div>
                 </div>
-            </section>
+            </section> -->
             <!-- Recently-View-Products /- -->
         </div>
         <!-- Different-Product-Section /- -->
